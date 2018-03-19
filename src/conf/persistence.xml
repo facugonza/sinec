@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="SimpleRESTwebPU" transaction-type="JTA">
+    <jta-data-source>jdbc/_sinec</jta-data-source>
+    <class>com.sinec.entity.Usuarios</class>
+    <class>com.sinec.entity.checkvehicular.ChkVehicular</class>
+    <class>com.sinec.entity.checkvehicular.ChkVehicularDetalle</class>
+    <class>com.sinec.entity.checkvehicular.ChkVehicularItem</class>
+    <class>com.sinec.entity.checkvehicular.ChkVehicularItemCategoria</class>
+    <class>com.sinec.entity.viaticos.RendicionDetalleSigno</class>
+    <class>com.sinec.entity.viaticos.RDetalleFormaDebito</class>
+    <class>com.sinec.entity.viaticos.TipoComprobante</class>
+    <class>com.sinec.entity.viaticos.Impuesto</class>
+    <class>com.sinec.entity.viaticos.RendicionDetalle</class>
+    <class>com.sinec.entity.viaticos.Rendicion</class>
+    <class>com.sinec.entity.viaticos.RDetalleFormaPago</class>
+    <class>com.sinec.entity.viaticos.RDetalleEgresoImpuesto</class>
+    <class>com.sinec.entity.viaticos.RDetalleConcepto</class>
+    <class>com.sinec.entity.viaticos.RDetalleIngreso</class>
+    <class>com.sinec.entity.viaticos.RDetalleUsuarios</class>
+    <class>com.sinec.entity.viaticos.RDetalleEgreso</class>
+    <class>com.sinec.entity.viaticos.RDetalleExtraccion</class>
+    <class>com.sinec.entity.viaticos.TipoFormaPago</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties>
+      <property name="javax.persistence.schema-generation.database.action" value="create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
