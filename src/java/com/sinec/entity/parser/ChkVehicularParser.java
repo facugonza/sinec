@@ -5,17 +5,20 @@
  */
 package com.sinec.entity.parser;
 
-import com.sinec.entity.checkvehicular.ChkVehicularDetalle;
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
+import javax.json.bind.annotation.JsonbDateFormat;
 
 /**
  *
  * @author fgonzalez
  */
-public class ChkVehicularParser {
+public class ChkVehicularParser implements Serializable{
     
+    
+    private static final long serialVersionUID = 1L;
 
     private Long idchkvehicular;
     private Integer idusuario;
@@ -24,8 +27,13 @@ public class ChkVehicularParser {
     private BigDecimal nivelcombustible=BigDecimal.ZERO;    
     private String patente;   
     
+    @JsonbDateFormat(value = "dd/MM/yyyy HH:mm:ss")
     private Date fechaproceso;
+    
+    @JsonbDateFormat(value = "dd/MM/yyyy HH:mm:ss")
     private Date fechalog= new Date();
+    
+    
     private Boolean habilitado = Boolean.TRUE ;
     private String observacion;       
     

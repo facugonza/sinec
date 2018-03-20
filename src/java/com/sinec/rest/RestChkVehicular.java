@@ -14,11 +14,14 @@ import com.sinec.entity.parser.ChkVehicularParser;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.json.bind.Jsonb;
 import javax.json.bind.JsonbBuilder;
-import javax.json.bind.annotation.JsonbTransient;
+import javax.json.bind.JsonbConfig;
+import javax.json.bind.annotation.JsonbDateFormat;
+import javax.json.bind.config.PropertyNamingStrategy;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.sql.DataSource;
@@ -30,9 +33,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 /**
  *
@@ -51,12 +52,31 @@ public class RestChkVehicular {
     @POST
     @Path("/create")
     @Produces({ MediaType.APPLICATION_JSON})
-    public ChkVehicular insertarCheckVehicular(@QueryParam("chkvehicularjson") String chkvehicularjson){
-        ChkVehicular chkVehicular=null;
+    public ChkVehicularParser insertarCheckVehicular(@QueryParam("chkvehicularparser") String chkvehicularparser){
+         ChkVehicular chkVehicular=null;
+         ChkVehicularParser chkVehicularParserReturn  =  null;
         try{
-            Jsonb jsonb = JsonbBuilder.create();
-            ChkVehicularParser chkVehicularParser  = jsonb.fromJson(new StringReader(chkvehicularjson), ChkVehicularParser.class);
-
+            //
+            System.out.println("JsonbDateFormat.DEFAULT_FORMAT >>> "+JsonbDateFormat.DEFAULT_FORMAT);
+            System.out.println("JsonbDateFormat.DEFAULT_LOCALE >>> "+JsonbDateFormat.DEFAULT_LOCALE);
+            System.out.println("JsonbDateFormat.TIME_IN_MILLIS >>> "+JsonbDateFormat.TIME_IN_MILLIS);
+            System.out.println("chkvehicularparser >>> "+ chkvehicularparser);
+            
+            JsonbConfig config = new JsonbConfig()                                                     
+                                                .withFormatting(Boolean.TRUE)    //salidas con formato
+                                                .withDateFormat("yyyy-MM-dd", Locale.getDefault()) //como manejar las fechas                                                    
+                                                .withPropertyNamingStrategy(PropertyNamingStrategy.LOWER_CASE_WITH_DASHES); //otra forma de manipular las propiedades                                            
+                        
+            
+            
+            Jsonb jsonb = JsonbBuilder.create(config);
+            
+            
+            
+            ChkVehicularParser chkVehicularParser  = jsonb.fromJson(new StringReader(chkvehicularparser), ChkVehicularParser.class);
+            System.out.println("chkvehicularjson>>> " + chkVehicularParser.getObservacion());
+            
+            
             chkVehicular = new ChkVehicular();                
                 chkVehicular.setIdUsuario(chkVehicularParser.getIdusuario());
                 chkVehicular.setKilometraje(chkVehicularParser.getKilometraje());
@@ -81,11 +101,11 @@ public class RestChkVehicular {
             }           
             chkVehicular.setListDetalleItems(detalleList);
             getEm().merge(chkVehicular);
-            
+            chkVehicularParserReturn = chkVehicularParser;
         }catch(Exception e){
             e.printStackTrace();
         }finally{
-            return chkVehicular;
+            return chkVehicularParserReturn;
         }
     }    
     //------------------------------------------------------------------------------------------------

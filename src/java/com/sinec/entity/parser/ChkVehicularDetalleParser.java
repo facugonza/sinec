@@ -5,11 +5,16 @@
  */
 package com.sinec.entity.parser;
 
+import java.io.Serializable;
+
 /**
  *
  * @author fgonzalez
  */
-public class ChkVehicularDetalleParser {
+public class ChkVehicularDetalleParser implements Serializable{
+    
+    
+    private static final long serialVersionUID = 1L;
     
     private Integer item;    
     private String observacion;    

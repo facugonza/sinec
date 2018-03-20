@@ -6,6 +6,7 @@
 package com.sinec.rest;
 
 import com.sinec.entity.Usuarios;
+import com.sinec.entity.viaticos.Rendicion;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Resource;
@@ -18,6 +19,7 @@ import javax.sql.DataSource;
 
 
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -36,7 +38,6 @@ public class RestViaticos {
     //------------------------------------------------------------------------------------------------------------
     private EntityManager getEm(){return this.em;}    
     //------------------------------------------------------------------------------------------------------------    
-
     @GET
     //@Path("/allenabled")
     @Produces({ MediaType.APPLICATION_JSON})
@@ -52,5 +53,19 @@ public class RestViaticos {
             return listaUsuarios;
         }
     }            
-    
+    //------------------------------------------------------------------------------------------------------------    
+    @POST
+    //@Path("/allenabled")
+    @Produces({ MediaType.APPLICATION_JSON})
+    public Rendicion createRendicion (String rendicionString){
+        Rendicion rendicion = new Rendicion();
+        try{
+
+        }catch(Exception e){
+            e.printStackTrace();            
+        }finally{            
+            return rendicion;
+        }
+    }                
+   //------------------------------------------------------------------------------------------------------------        
 }
